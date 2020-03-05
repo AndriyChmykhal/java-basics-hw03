@@ -1,50 +1,87 @@
 public class Student {
-  int rating;
-  private String name;
 
-  // TODO implement Student class according to the instructions provided in the README.md file
 
-  public Student(String name) {
-    //TODO initialize name
-  }
+    private int rating;
+    private String name;
+    public static int count;
+    private static int summaryRating;
 
-  public static double getAvgRating() {
-    // TODO return average rating of all students
-    return 0;
-  }
+    public Student(String name, int rating) {
+        this.name = name;
+        this.rating = rating;
+        count++;
+        summaryRating += rating;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public Student(String name) {
+        this.name = name;
+        count++;
+    }
 
-  public void setName(String name) {
-    // TODO set student's name
-  }
+    public Student() {
+        count++;
+    }
 
-  public int getRating() {
-    return rating;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setRating(int rating) {
-    // TODO initialize rating;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public boolean betterStudent(Student student) {
-    // TODO return the result of comparing this.student's rating with the student's rating
-    return false;
-  }
+    public int getRating() {
+        return rating;
+    }
 
-  public void changeRating(int rating) {
-    // TODO change this student's rating and average rating of all students
-  }
+    public void setRating(int rating) {
+        this.rating = rating;
+        summaryRating += rating;
+    }
 
-  public static void removeStudent(Student student) {
-    // TODO remove student
-  }
+    public boolean betterStudent(Student student) {
+        return rating > student.rating;
+    }
 
-  @Override
-  public String toString() {
-    // TODO return String with name and rating of this student
-    return "";
-  }
+    public void changeRating(int rating) {
+        summaryRating -= this.rating;
+        setRating(rating);
+        // TODO change this student's rating and average rating of all students
+    }
+
+    public static void removeStudent(Student student) {
+        count--;
+        summaryRating -= student.rating;
+    }
+
+    @Override
+    public String toString() {
+        // TODO return String with name and rating of this student
+        return this.name + " " + this.rating;
+    }
+
+    public static double getAvgRating() {
+        double sum = summaryRating;
+        double number = count;
+        double avg = sum / number;
+        if (count > 0) {
+            return avg;
+        } else {
+            return 0.0;
+        }
+    }
+
+    public static void main(String[] args) {
+      Student student1 = new Student("Dmytro");
+      Student student2 = new Student("Pavlo");
+      Student student3 = new Student("Mykhailo", 40);
+
+      student1.setRating(50);
+      student1.setRating(30);
+      System.out.println(getAvgRating());
+
+      student3.changeRating(20);
+      System.out.println(getAvgRating());
+    }
 }
+
